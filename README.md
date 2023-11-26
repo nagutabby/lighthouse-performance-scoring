@@ -4,5 +4,5 @@
 ```bash
 nvm use
 pnpm i
-node main.js
+pnpm tsx main.ts
 ```
