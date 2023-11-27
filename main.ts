@@ -32,16 +32,15 @@ const rowFormatter = row => row.map(value => {
 for (const baseURL of baseURLs) {
   for (const prefecture of prefectures) {
     const targetURL = baseURL + prefecture
-    console.log(targetURL)
     const result = await lighthouse(targetURL, options)
     const lhr = result?.lhr;
-    const output_array_title = ["requestedUrl", "category", "audit", "auditScore", "displayValue", "description", "categoryScore"];
+    const output_array_title = ["isPWAEnabled", "prefecture", "audit", "auditScore", "displayValue", "description", "categoryScore"];
     let output_arrays: string[][] = []
 
     for (const category of Object.values(lhr!.categories)) {
       output_arrays.push(rowFormatter([
-        targetURL,
-        category.id,
+        baseURL === "https://tourist-information-pwa-production.up.railway.app/locations/" ? "true" : "false",
+        prefecture,
         ,
         ,
         ,
@@ -55,8 +54,8 @@ for (const baseURL of baseURLs) {
         const audit = lhr?.audits[auditRef.id];
         if (!audit) continue;
         output_arrays.push(rowFormatter([
-          targetURL,
-          category.id,
+          baseURL === "https://tourist-information-pwa-production.up.railway.app/locations/" ? "true" : "false",
+          prefecture,
           auditRef.id,
           audit.score,
           audit.displayValue || '',
