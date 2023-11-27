@@ -9,14 +9,27 @@ const outputFile = "lighthouse.csv";
 
 const result = await lighthouse("https://example.com", options);
 const lhr = result?.lhr;
-const output_array_title = ["requestedUrl", "category", "audit", "score", "displayValue", "description"];
+const output_array_title = ["requestedUrl", "category", "audit", "auditScore", "displayValue", "description", "categoryScore"];
 let output_arrays: string[][] = []
 
-const escape = value => `"${value.replace(/"/g, '""')}"`;
+const escape = (value: string) => `"${value.replace(/"/g, '""')}"`;
 const rowFormatter = row => row.map(value => {
-  if (value === null) return 'null';
-  return value.toString();
-}).map(escape);
+  if (value !== null) {
+    return escape(value.toString());
+  };
+})
+
+for (const category of Object.values(lhr!.categories)) {
+  output_arrays.push(rowFormatter([
+    lhr?.requestedUrl,
+    category.id,
+    ,
+    ,
+    ,
+    ,
+    category.score,
+  ]));
+}
 
 for (const category of Object.values(lhr!.categories)) {
   for (const auditRef of category.auditRefs) {
@@ -29,6 +42,7 @@ for (const category of Object.values(lhr!.categories)) {
       audit.score,
       audit.displayValue || '',
       audit.description,
+      ,
     ]));
   }
 }
