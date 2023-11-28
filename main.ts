@@ -93,6 +93,3 @@ for (const baseURL of baseURLs) {
 }
 
 chrome.kill();
-
-
-
