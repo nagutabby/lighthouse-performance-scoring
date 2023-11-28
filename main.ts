@@ -11,6 +11,12 @@ const options: Flags = {
   onlyCategories: ["performance"],
   screenEmulation: {
     mobile: true
+  },
+  throttlingMethod: "devtools",
+  throttling: {
+    requestLatencyMs: 0,
+    downloadThroughputKbps: 0,
+    uploadThroughputKbps: 0
   }
 };
 
