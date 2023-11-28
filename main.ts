@@ -1,4 +1,4 @@
-import fs, { ObjectEncodingOptions } from "fs";
+import fs from "fs";
 import lighthouse, { Flags } from "lighthouse"
 import * as chromeLauncher from "chrome-launcher"
 
