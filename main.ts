@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { ObjectEncodingOptions } from "fs";
 import lighthouse, { Flags } from "lighthouse"
 import * as chromeLauncher from "chrome-launcher"
 
@@ -60,7 +60,7 @@ for (const baseURL of baseURLs) {
     const output_array_title = ["isPWAEnabled", "prefecture", "audit", "auditScore", "displayValue", "description", "categoryScore"];
     let output_arrays: string[][] = []
 
-    for (const category of Object.values(lhr!.categories)) {
+    for (const category of Object.values(lhr!.categories as Object)) {
       output_arrays.push(rowFormatter([
         baseURL === "https://tourist-information-pwa-production.up.railway.app/locations/" ? "true" : "false",
         prefecture,
@@ -72,7 +72,7 @@ for (const baseURL of baseURLs) {
       ]));
     }
 
-    for (const category of Object.values(lhr!.categories)) {
+    for (const category of Object.values(lhr!.categories as Object)) {
       for (const auditRef of category.auditRefs) {
         const audit = lhr?.audits[auditRef.id];
         if (!audit) continue;
