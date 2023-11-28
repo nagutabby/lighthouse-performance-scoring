@@ -23,7 +23,7 @@ const options: Flags = {
   clearStorageTypes: ["file_systems", "shader_cache"]
 };
 
-const outputFile = "lighthouse_prerender_4g_mobile.csv";
+const outputFile = "lighthouse.csv";
 
 const baseURLs = [
   "https://tourist-information-base-production.up.railway.app/locations/",
