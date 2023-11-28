@@ -9,8 +9,10 @@ const options: Flags = {
   output: "csv",
   port: chrome.port,
   onlyCategories: ["performance"],
+  formFactor: "mobile",
   screenEmulation: {
-    mobile: true
+    mobile: true,
+    disabled: false
   },
   throttlingMethod: "devtools",
   throttling: {
