@@ -19,7 +19,10 @@ const options: Flags = {
     requestLatencyMs: 0,
     downloadThroughputKbps: 0,
     uploadThroughputKbps: 0
-  }
+  },
+  disableStorageReset: true,
+  locale: "ja",
+  disableFullPageScreenshot: true
 };
 
 const outputFile = "lighthouse.csv";
