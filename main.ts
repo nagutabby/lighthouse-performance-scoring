@@ -74,7 +74,8 @@ for (const baseURL of baseURLs) {
     })
   }
 }
-await chrome.kill();
+
+chrome.kill();
 
 
 
