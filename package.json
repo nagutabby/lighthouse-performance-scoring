@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@sitespeed.io/throttle": "^5.0.0",
     "@types/node": "^20.10.0",
     "chrome-launcher": "^1.1.0",
     "lighthouse": "^11.3.0",
