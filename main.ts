@@ -23,7 +23,7 @@ const prefectures = [
 ]
 
 const escape = (value: string) => `"${value.replace(/"/g, '""')}"`;
-const rowFormatter = row => row.map(value => {
+const rowFormatter = (row: any) => row.map((value: any) => {
   if (value !== null) {
     return escape(value.toString());
   };
