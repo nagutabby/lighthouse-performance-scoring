@@ -20,12 +20,10 @@ const options: Flags = {
     downloadThroughputKbps: 0,
     uploadThroughputKbps: 0
   },
-  disableStorageReset: true,
-  locale: "ja",
-  disableFullPageScreenshot: true
+  clearStorageTypes: ["file_systems", "shader_cache"]
 };
 
-const outputFile = "lighthouse.csv";
+const outputFile = "lighthouse_3g.csv";
 
 const baseURLs = [
   "https://tourist-information-base-production.up.railway.app/locations/",
@@ -48,6 +46,10 @@ const rowFormatter = (row: any) => row.map((value: any) => {
     return escape(value.toString());
   };
 })
+
+for (const baseURL of baseURLs) {
+  await lighthouse(baseURL, options)
+}
 
 for (const baseURL of baseURLs) {
   for (const prefecture of prefectures) {
