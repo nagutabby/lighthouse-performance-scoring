@@ -4,7 +4,16 @@ import * as chromeLauncher from "chrome-launcher"
 
 const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
 
-const options: Flags = { logLevel: "info", output: "csv", port: chrome.port, onlyCategories: ["performance"] };
+const options: Flags = {
+  logLevel: "info",
+  output: "csv",
+  port: chrome.port,
+  onlyCategories: ["performance"],
+  screenEmulation: {
+    mobile: true
+  }
+};
+
 const outputFile = "lighthouse.csv";
 
 const baseURLs = [
