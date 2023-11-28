@@ -40,16 +40,17 @@ const prefectures = [
   "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
 ]
 
+for (const prefecture of prefectures) {
+  await lighthouse("https://tourist-information-pwa-production.up.railway.app/locations/" + prefecture, options)
+}
+
+
 const escape = (value: string) => `"${value.replace(/"/g, '""')}"`;
 const rowFormatter = (row: any) => row.map((value: any) => {
   if (value !== null) {
     return escape(value.toString());
   };
 })
-
-for (const baseURL of baseURLs) {
-  await lighthouse(baseURL, options)
-}
 
 for (const baseURL of baseURLs) {
   for (const prefecture of prefectures) {
