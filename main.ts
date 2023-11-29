@@ -25,7 +25,7 @@ const options: Flags = {
 
 const outputFile = "lighthouse.csv";
 
-const baseURL = "https://ff336b25.tourist-information.pages.dev/locations/"
+const baseURL = "https://tourist-information.pages.dev/locations/"
 
 const prefectures = [
   "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
@@ -38,7 +38,7 @@ const prefectures = [
 ]
 
 for (const prefecture of prefectures) {
-  await lighthouse("https://ff336b25.tourist-information.pages.dev/locations/" + prefecture, options)
+  await lighthouse(baseURL + prefecture, options)
 }
 
 
