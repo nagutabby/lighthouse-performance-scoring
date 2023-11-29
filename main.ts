@@ -50,8 +50,7 @@ const rowFormatter = (row: any) => row.map((value: any) => {
 })
 
 for (const prefecture of prefectures) {
-  const targetURL = baseURL + prefecture
-  const result = await lighthouse(targetURL, options)
+  const result = await lighthouse(baseURL + prefecture, options)
   const lhr = result?.lhr;
   const output_array_title = ["prefecture", "audit", "auditScore", "displayValue", "description", "categoryScore"];
   let output_arrays: string[][] = []
