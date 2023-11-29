@@ -25,10 +25,7 @@ const options: Flags = {
 
 const outputFile = "lighthouse.csv";
 
-const baseURLs = [
-  "https://tourist-information-base-production.up.railway.app/locations/",
-  "https://tourist-information-pwa-production.up.railway.app/locations/"
-]
+const baseURL = "https://ff336b25.tourist-information.pages.dev/locations/"
 
 const prefectures = [
   "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
@@ -40,9 +37,9 @@ const prefectures = [
   "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
 ]
 
-for (const prefecture of prefectures) {
-  await lighthouse("https://tourist-information-pwa-production.up.railway.app/locations/" + prefecture, options)
-}
+// for (const prefecture of prefectures) {
+//   await lighthouse("https://tourist-information-pwa-production.up.railway.app/locations/" + prefecture, options)
+// }
 
 
 const escape = (value: string) => `"${value.replace(/"/g, '""')}"`;
@@ -52,50 +49,47 @@ const rowFormatter = (row: any) => row.map((value: any) => {
   };
 })
 
-for (const baseURL of baseURLs) {
-  for (const prefecture of prefectures) {
-    const targetURL = baseURL + prefecture
-    const result = await lighthouse(targetURL, options)
-    const lhr = result?.lhr;
-    const output_array_title = ["isPWAEnabled", "prefecture", "audit", "auditScore", "displayValue", "description", "categoryScore"];
-    let output_arrays: string[][] = []
+for (const prefecture of prefectures) {
+  const targetURL = baseURL + prefecture
+  const result = await lighthouse(targetURL, options)
+  const lhr = result?.lhr;
+  const output_array_title = ["prefecture", "audit", "auditScore", "displayValue", "description", "categoryScore"];
+  let output_arrays: string[][] = []
 
-    for (const category of Object.values(lhr!.categories as Object)) {
+  for (const category of Object.values(lhr!.categories as Object)) {
+    output_arrays.push(rowFormatter([
+      prefecture,
+      ,
+      ,
+      ,
+      ,
+      category.score,
+    ]));
+  }
+
+  for (const category of Object.values(lhr!.categories as Object)) {
+    for (const auditRef of category.auditRefs) {
+      const audit = lhr?.audits[auditRef.id];
+      if (!audit) continue;
       output_arrays.push(rowFormatter([
-        baseURL === "https://tourist-information-pwa-production.up.railway.app/locations/" ? "true" : "false",
         prefecture,
+        auditRef.id,
+        audit.score,
+        audit.displayValue || '',
+        audit.description,
         ,
-        ,
-        ,
-        ,
-        category.score,
       ]));
     }
-
-    for (const category of Object.values(lhr!.categories as Object)) {
-      for (const auditRef of category.auditRefs) {
-        const audit = lhr?.audits[auditRef.id];
-        if (!audit) continue;
-        output_arrays.push(rowFormatter([
-          baseURL === "https://tourist-information-pwa-production.up.railway.app/locations/" ? "true" : "false",
-          prefecture,
-          auditRef.id,
-          audit.score,
-          audit.displayValue || '',
-          audit.description,
-          ,
-        ]));
-      }
-    }
-
-    if (!fs.existsSync(outputFile)) {
-      fs.writeFileSync(outputFile, output_array_title.join(",") + "\n")
-    }
-
-    output_arrays.forEach((output_array) => {
-      fs.appendFileSync(outputFile, output_array.join(",") + "\n");
-    })
   }
+
+  if (!fs.existsSync(outputFile)) {
+    fs.writeFileSync(outputFile, output_array_title.join(",") + "\n")
+  }
+
+  output_arrays.forEach((output_array) => {
+    fs.appendFileSync(outputFile, output_array.join(",") + "\n");
+  })
 }
+
 
 chrome.kill();
