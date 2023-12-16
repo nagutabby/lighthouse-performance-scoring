@@ -1,6 +1,6 @@
 import fs from "fs";
-import lighthouse, { Flags } from "lighthouse"
-import * as chromeLauncher from "chrome-launcher"
+import lighthouse, { Flags } from "lighthouse";
+import * as chromeLauncher from "chrome-launcher";
 
 const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
 
@@ -25,7 +25,7 @@ const options: Flags = {
 
 const outputFile = "lighthouse.csv";
 
-const baseURL = "https://tourist-information.pages.dev/locations/"
+const baseURL = "https://tourist-information.pages.dev/locations/";
 
 const prefectures = [
   "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
@@ -35,10 +35,10 @@ const prefectures = [
   "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県",
   "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
   "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
-]
+];
 
 for (const prefecture of prefectures) {
-  await lighthouse(baseURL + prefecture, options)
+  await lighthouse(baseURL + prefecture, options);
 }
 
 
@@ -47,13 +47,13 @@ const rowFormatter = (row: any) => row.map((value: any) => {
   if (value !== null) {
     return escape(value.toString());
   };
-})
+});
 
 for (const prefecture of prefectures) {
-  const result = await lighthouse(baseURL + prefecture, options)
+  const result = await lighthouse(baseURL + prefecture, options);
   const lhr = result?.lhr;
   const output_array_title = ["prefecture", "audit", "auditScore", "displayValue", "description", "categoryScore"];
-  let output_arrays: string[][] = []
+  let output_arrays: string[][] = [];
 
   for (const category of Object.values(lhr!.categories as Object)) {
     output_arrays.push(rowFormatter([
@@ -82,12 +82,12 @@ for (const prefecture of prefectures) {
   }
 
   if (!fs.existsSync(outputFile)) {
-    fs.writeFileSync(outputFile, output_array_title.join(",") + "\n")
+    fs.writeFileSync(outputFile, output_array_title.join(",") + "\n");
   }
 
   output_arrays.forEach((output_array) => {
     fs.appendFileSync(outputFile, output_array.join(",") + "\n");
-  })
+  });
 }
 
 
