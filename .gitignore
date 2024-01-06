@@ -1,2 +1,3 @@
 /node_modules
 /lighthouse.csv
+.DS_Store
